@@ -446,7 +446,7 @@ checksum = "4e1b7878800220a76a08f32c057829511440f65528b63b940f2f2bc145d7ac68"
 
 [[package]]
 name = "rsblocks"
-version = "0.1.9"
+version = "0.1.11"
 dependencies = [
  "alsa",
  "breadx",
