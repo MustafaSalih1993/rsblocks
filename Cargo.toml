@@ -1,6 +1,6 @@
 [package]
 name = "rsblocks"
-version = "0.1.9"
+version = "0.1.11"
 authors = ["mustafa salih <mustafasalih1991@gmail.com>"]
 edition = "2018"
 readme = "README.md"
