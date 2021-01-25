@@ -13,6 +13,7 @@ pub enum ThreadsData {
     Uptime(String),
     Spotify(String),
     LoadAvg(String),
+    NetSpeed(String),
 }
 
 #[derive(Clone)]
@@ -111,6 +112,14 @@ pub struct LoadAvg {
     pub icon: String,
     pub enabled: bool,
     pub delay: f64,
+}
+
+#[derive(Clone)]
+pub struct NetSpeed {
+    pub transmit_icon: String,
+    pub recieve_icon: String,
+    pub interface: String,
+    pub enabled: bool,
 }
 
 pub struct Blocks {

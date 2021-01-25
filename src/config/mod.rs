@@ -1,26 +1,28 @@
 mod battery;
 mod cputemp;
 mod disk;
+mod loadavg;
 mod memory;
 mod mpd;
+mod netspeed;
+mod spotify;
 mod time;
 mod uptime;
 mod volume;
 mod weather;
-mod spotify;
-mod loadavg;
 
 use self::mpd::Mpd;
 use battery::Battery;
 use cputemp::CpuTemp;
 use disk::Disk;
+use loadavg::LoadAvg;
 use memory::Memory;
+use netspeed::NetSpeed;
+use spotify::Spotify;
 use time::Time;
 use uptime::Uptime;
 use volume::Volume;
 use weather::Weather;
-use spotify::Spotify;
-use loadavg::LoadAvg;
 
 use std::default::Default;
 use std::fs::File;
@@ -36,7 +38,8 @@ lazy_static! {
 
         match File::open(&yml_source) {
             Ok(mut file) => {
-                file.read_to_string(&mut data).expect("Failed to read config to string");
+                file.read_to_string(&mut data)
+                    .expect("Failed to read config to string");
                 serde_yaml::from_str(&data).expect("Failed to parse config")
             }
             Err(_) => Config::default(),
@@ -80,7 +83,10 @@ pub struct Config {
     pub spotify: Spotify,
 
     #[serde(default)]
-    pub loadavg: LoadAvg
+    pub loadavg: LoadAvg,
+
+    #[serde(default)]
+    pub netspeed: NetSpeed,
 }
 
 impl Default for Config {
@@ -97,7 +103,8 @@ impl Default for Config {
             uptime: Default::default(),
             mpd: Default::default(),
             spotify: Default::default(),
-            loadavg: Default::default()
+            loadavg: Default::default(),
+            netspeed: Default::default(),
         }
     }
 }

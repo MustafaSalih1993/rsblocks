@@ -1,9 +1,7 @@
 # This is the full configuration template available for rsblocks.
-
 # NOTE: the (delay) is in **SECONDS** and the float point "." is required.
 
-general:
-  seperator: '┃'
+seperator: '┃'
 
 
 # Time always running, no enabled option for this  
@@ -12,6 +10,14 @@ time:
   format: '%d %b, %I:%M:%S %p'
   delay: 1.0
 
+
+# ethernet/wifi bandwith  
+netspeed:
+  transmit_icon: ''
+  recieve_icon: ''
+  interface: 'wlan0'
+  enabled: false
+  
   
 memory:
   icon: '▦'

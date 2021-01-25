@@ -11,6 +11,7 @@ A multi threaded fast status bar for dwm window manager written in **Rust** 🦀
 ## Features
 * Multi Threads
 * Time/Date
+* Net Usage
 * Memory Usage
 * Disk Usage
 * Weather Temperature

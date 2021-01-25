@@ -1,0 +1,45 @@
+use crate::config::CONFIG;
+use std::fs::read_to_string;
+use std::thread;
+use std::time::Duration;
+
+pub fn get_netspeed() -> String {
+    let tx1: u64 = parse_speed_file("tx_bytes");
+    let rx1: u64 = parse_speed_file("rx_bytes");
+    thread::sleep(Duration::from_secs(1));
+    let tx2: u64 = parse_speed_file("tx_bytes");
+    let rx2: u64 = parse_speed_file("rx_bytes");
+
+    let tx_bps = tx2 - tx1;
+    let rx_bps = rx2 - rx1;
+
+    let tx = calculate(tx_bps);
+    let rx = calculate(rx_bps);
+
+    format!(
+        "  {}  {}  {}  {}  {}",
+        CONFIG.netspeed.recieve_icon, rx, CONFIG.netspeed.transmit_icon, tx, CONFIG.seperator
+    )
+}
+
+fn parse_speed_file(pth: &str) -> u64 {
+    let base_path = format!("/sys/class/net/{}/statistics/", CONFIG.netspeed.interface);
+    let x: u64 = read_to_string(base_path.to_owned() + pth)
+        .unwrap()
+        .trim()
+        .parse::<u64>()
+        .unwrap();
+
+    x
+}
+
+fn calculate(speed: u64) -> String {
+    let lookup = ["B", "kB", "MB"];
+    let mut speed = speed as f64;
+    let mut idx = 0;
+    while speed >= 1024.0 && idx < lookup.len() {
+        speed /= 1024.0;
+        idx += 1;
+    }
+    format!("{:.1} {}", speed, lookup[idx])
+}
