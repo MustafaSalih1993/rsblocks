@@ -6,9 +6,24 @@ seperator: '┃'
 
 # Time always running, no enabled option for this  
 time:
-  icon: ''
-  format: '%d %b, %I:%M:%S %p'
   delay: 1.0
+  format: '%d %b, %I:%M:%S %p'
+  icon: ''
+
+
+# public ip address  
+pub_ip:
+  delay: 120.0
+  enabled: true
+  icon: ''
+  
+
+# ethernet/wifi bandwith  
+netspeed:
+  enabled: false
+  interface: 'wlan0'
+  recieve_icon: ''
+  transmit_icon: ''
 
 
 # ethernet/wifi bandwith  
@@ -20,56 +35,56 @@ netspeed:
   
   
 memory:
-  icon: '▦'
-  enabled: true
   delay: 2.0
+  enabled: true
+  icon: '▦'
 
   
 disk:
-  icon: ''
-  enabled: true
   delay: 120.0
+  enabled: true
+  icon: ''
 
   
 battery:
-  icon: ''
-  enabled: false
-  source: 'BAT0'
   delay: 120.0
+  enabled: false
+  icon: ''
+  source: 'BAT0'
   
 
 cpu_temperature:
-  icon: ''
-  enabled: true
   delay: 120.0
+  enabled: true
+  icon: ''
 
 
 # cpu load average  
 loadavg:
-  icon: ''
-  enabled: false
   delay: 2.0
+  enabled: false
+  icon: ''
   
 
 mpd:
-  icon: ''
-  host: '127.0.0.1'
-  port: '6600'
-  enabled: false
   delay: 5.0
+  enabled: false
+  host: '127.0.0.1'
+  icon: ''
+  port: '6600'
 
   
 volume:
-  icon: ''
-  enabled: true
-  delay: 0.18
   card: 'PULSE'
+  delay: 0.18
+  enabled: true
+  icon: ''
 
 
 spotify:
-  icon: ''  
-  enabled: false
   delay: 0.5
+  enabled: false
+  icon: ''  
 
   
 # weather format options is available on
@@ -79,8 +94,8 @@ spotify:
 #       - if you have multiple formats and want to insert space between them use '+' instead.
 #       - giving (city) a value is recommended.
 weather:
-  enabled: true
-  icon: ''
   city: ''        
-  format: '%l:+%t'
   delay: 7200.0   # 7200 seconds = 2 hours
+  enabled: true
+  format: '%l:+%t'
+  icon: ''

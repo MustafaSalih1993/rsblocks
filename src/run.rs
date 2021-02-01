@@ -17,6 +17,16 @@ pub fn run(mut blocks: Blocks) {
             thread::sleep(Duration::from_secs_f64(CONFIG.loadavg.delay))
         });
     }
+    // public ip thread
+    if CONFIG.pub_ip.enabled {
+        let pub_ip_tx = tx.clone();
+        thread::spawn(move || loop {
+            let pub_ip_data = ThreadsData::PubIp(pub_ip::get_pub_ip());
+            pub_ip_tx.send(pub_ip_data).unwrap();
+            thread::sleep(Duration::from_secs_f64(CONFIG.pub_ip.delay))
+        });
+    }
+
     // spotify thread
     if CONFIG.spotify.enabled {
         let spotify_tx = tx.clone();
@@ -130,7 +140,8 @@ pub fn run(mut blocks: Blocks) {
     //Main
     {
         // NOTE: order matters to the final format
-        let mut bar: Vec<String> = vec![String::from(""); 12];
+
+        let mut bar: Vec<String> = vec![String::from(""); 13];
         //iterating the values recieved from the threads
         for data in rx {
             match data {
@@ -139,13 +150,14 @@ pub fn run(mut blocks: Blocks) {
                 ThreadsData::Sound(x) => bar[2] = x,
                 ThreadsData::Weather(x) => bar[3] = x,
                 ThreadsData::NetSpeed(x) => bar[4] = x,
-                ThreadsData::Disk(x) => bar[5] = x,
-                ThreadsData::Memory(x) => bar[6] = x,
-                ThreadsData::CpuTemp(x) => bar[7] = x,
-                ThreadsData::LoadAvg(x) => bar[8] = x,
-                ThreadsData::Battery(x) => bar[9] = x,
-                ThreadsData::Uptime(x) => bar[10] = x,
-                ThreadsData::Time(x) => bar[11] = x,
+                ThreadsData::PubIp(x) => bar[5] = x,
+                ThreadsData::Disk(x) => bar[6] = x,
+                ThreadsData::Memory(x) => bar[7] = x,
+                ThreadsData::CpuTemp(x) => bar[8] = x,
+                ThreadsData::LoadAvg(x) => bar[9] = x,
+                ThreadsData::Battery(x) => bar[10] = x,
+                ThreadsData::Uptime(x) => bar[11] = x,
+                ThreadsData::Time(x) => bar[12] = x,
             }
 
             // match ends here

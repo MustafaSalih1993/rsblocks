@@ -5,6 +5,7 @@ pub mod load_average;
 pub mod memory;
 pub mod mpd;
 pub mod netspeed;
+pub mod pub_ip;
 pub mod spotify;
 pub mod time;
 pub mod uptime;

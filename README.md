@@ -19,6 +19,7 @@ A multi threaded fast status bar for dwm window manager written in **Rust** 🦀
 * Battery Percentage
 * Cpu Temperature
 * Load Average
+* Public Ip Address
 * Uptime
 * Mpd Current Song
 * Spotify Current Song
