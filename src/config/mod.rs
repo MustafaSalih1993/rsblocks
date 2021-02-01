@@ -5,6 +5,7 @@ mod loadavg;
 mod memory;
 mod mpd;
 mod netspeed;
+mod pub_ip;
 mod spotify;
 mod time;
 mod uptime;
@@ -18,6 +19,7 @@ use disk::Disk;
 use loadavg::LoadAvg;
 use memory::Memory;
 use netspeed::NetSpeed;
+use pub_ip::PubIp;
 use spotify::Spotify;
 use time::Time;
 use uptime::Uptime;
@@ -87,6 +89,9 @@ pub struct Config {
 
     #[serde(default)]
     pub netspeed: NetSpeed,
+
+    #[serde(default)]
+    pub pub_ip: PubIp,
 }
 
 impl Default for Config {
@@ -105,6 +110,7 @@ impl Default for Config {
             spotify: Default::default(),
             loadavg: Default::default(),
             netspeed: Default::default(),
+            pub_ip: Default::default(),
         }
     }
 }
