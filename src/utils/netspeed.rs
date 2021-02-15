@@ -26,7 +26,7 @@ pub fn get_netspeed() -> ThreadsData {
 
 fn parse_speed_file(pth: &str) -> u64 {
     let base_path = format!("/sys/class/net/{}/statistics/", CONFIG.netspeed.interface);
-    let x: u64 = read_to_string(base_path.to_owned() + pth)
+    let x: u64 = read_to_string(base_path + pth)
         .unwrap()
         .trim()
         .parse::<u64>()
