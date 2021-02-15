@@ -1,4 +1,5 @@
 mod battery;
+mod bitcoins;
 mod cputemp;
 mod disk;
 mod loadavg;
@@ -14,6 +15,7 @@ mod weather;
 
 use self::mpd::Mpd;
 use battery::Battery;
+use bitcoins::BitCoins;
 use cputemp::CpuTemp;
 use disk::Disk;
 use loadavg::LoadAvg;
@@ -92,6 +94,9 @@ pub struct Config {
 
     #[serde(default)]
     pub pub_ip: PubIp,
+
+    #[serde(default)]
+    pub bitcoins: BitCoins,
 }
 
 impl Default for Config {
@@ -111,6 +116,7 @@ impl Default for Config {
             loadavg: Default::default(),
             netspeed: Default::default(),
             pub_ip: Default::default(),
+            bitcoins: Default::default(),
         }
     }
 }

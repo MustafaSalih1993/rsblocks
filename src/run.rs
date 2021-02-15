@@ -72,6 +72,11 @@ pub fn run(mut blocks: Blocks) {
         spawn_thread_loop(tx.clone(), uptime::get_uptime, CONFIG.uptime.delay);
     }
 
+    // BTC thread
+    if CONFIG.bitcoins.enabled {
+        spawn_thread_loop(tx.clone(), bitcoins::get_price, CONFIG.bitcoins.delay);
+    }
+
     // net speed thread
     // get_netspeed will sleep inside the function
     if CONFIG.netspeed.enabled {
@@ -91,7 +96,7 @@ pub fn run(mut blocks: Blocks) {
     {
         // NOTE: order matters to the final format
 
-        let mut bar: Vec<String> = vec![String::from(""); 13];
+        let mut bar: Vec<String> = vec![String::from(""); 14];
         //iterating the values recieved from the threads
         for data in rx {
             match data {
@@ -100,14 +105,15 @@ pub fn run(mut blocks: Blocks) {
                 ThreadsData::Sound(x) => bar[2] = x,
                 ThreadsData::Weather(x) => bar[3] = x,
                 ThreadsData::NetSpeed(x) => bar[4] = x,
-                ThreadsData::PubIp(x) => bar[5] = x,
-                ThreadsData::Disk(x) => bar[6] = x,
-                ThreadsData::Memory(x) => bar[7] = x,
-                ThreadsData::CpuTemp(x) => bar[8] = x,
-                ThreadsData::LoadAvg(x) => bar[9] = x,
-                ThreadsData::Battery(x) => bar[10] = x,
-                ThreadsData::Uptime(x) => bar[11] = x,
-                ThreadsData::Time(x) => bar[12] = x,
+                ThreadsData::BitCoins(x) => bar[5] = x,
+                ThreadsData::PubIp(x) => bar[6] = x,
+                ThreadsData::Disk(x) => bar[7] = x,
+                ThreadsData::Memory(x) => bar[8] = x,
+                ThreadsData::CpuTemp(x) => bar[9] = x,
+                ThreadsData::LoadAvg(x) => bar[10] = x,
+                ThreadsData::Battery(x) => bar[11] = x,
+                ThreadsData::Uptime(x) => bar[12] = x,
+                ThreadsData::Time(x) => bar[13] = x,
             }
 
             // match ends here

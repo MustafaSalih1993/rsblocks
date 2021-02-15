@@ -1,4 +1,5 @@
 pub mod battery;
+pub mod bitcoins;
 pub mod cpu;
 pub mod disk;
 pub mod load_average;

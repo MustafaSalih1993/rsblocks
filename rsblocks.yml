@@ -55,7 +55,7 @@ battery:
 
 cpu_temperature:
   delay: 120.0
-  enabled: true
+  enabled: false
   icon: ''
 
 
@@ -64,6 +64,13 @@ loadavg:
   delay: 2.0
   enabled: false
   icon: ''
+
+# bitcoin price
+bitcoins:
+  delay: 7200.0  # 2 hours
+  enabled: false
+  icon: ''
+  symbol: 'BTC-USD'
   
 
 mpd:
@@ -77,7 +84,7 @@ mpd:
 volume:
   card: 'PULSE'
   delay: 0.18
-  enabled: true
+  enabled: false
   icon: ''
 
 
