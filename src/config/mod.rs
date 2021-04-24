@@ -44,7 +44,13 @@ lazy_static! {
             Ok(mut file) => {
                 file.read_to_string(&mut data)
                     .expect("Failed to read config to string");
-                serde_yaml::from_str(&data).expect("Failed to parse config")
+                serde_yaml::from_str(&data).unwrap_or_else(move |e| {
+                    eprintln!(
+                        "Failed to parse config: {}\nloading defaults!",
+                        e.to_string()
+                    );
+                    Config::default()
+                })
             }
             Err(_) => Config::default(),
         }
