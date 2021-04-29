@@ -42,7 +42,7 @@ memory:
   
 disk:
   delay: 120.0
-  enabled: true
+  enabled: false
   icon: ''
 
   
@@ -50,7 +50,6 @@ battery:
   delay: 120.0
   enabled: false
   icon: ''
-  source: 'BAT0'
   
 
 cpu_temperature:
@@ -66,6 +65,8 @@ loadavg:
   icon: ''
 
 # bitcoin price
+# bitcoin function using www.blockchain.com's API,
+# you can visit that to check other bitcoins symbols!
 bitcoins:
   delay: 7200.0  # 2 hours
   enabled: false
