@@ -13,8 +13,8 @@ mod uptime;
 mod volume;
 mod weather;
 
+use self::battery::Battery;
 use self::mpd::Mpd;
-use battery::Battery;
 use bitcoins::BitCoins;
 use cputemp::CpuTemp;
 use disk::Disk;

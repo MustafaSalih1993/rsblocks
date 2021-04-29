@@ -1,37 +1,32 @@
 use crate::config::CONFIG;
 use crate::types::ThreadsData;
-use std::fs::read_to_string;
+use battery::Manager;
+
+// TODO: better error handeling
 
 // getting battery percentage
 pub fn get_battery() -> ThreadsData {
-    let error = ThreadsData::Battery(String::from("check your battery source name"));
-
-    let battery_full_cap_file = format!(
-        "/sys/class/power_supply/{}/charge_full_design",
-        CONFIG.battery.source
-    );
-    let battery_charge_now_file = format!(
-        "/sys/class/power_supply/{}/charge_now",
-        CONFIG.battery.source
-    );
-
-    let buf = match read_to_string(battery_full_cap_file) {
-        Ok(file) => file,
-        Err(_) => return error,
-    };
-    let full_design = buf.trim().parse::<u32>().unwrap();
-
-    let buf = match read_to_string(&battery_charge_now_file) {
-        Ok(data) => data,
-        _ => return error,
+    let battery_manager = if let Ok(manager) = Manager::new() {
+        manager
+    } else {
+        return ThreadsData::Battery(String::from("Cannot Create Battery Manager!"));
     };
 
-    let charge_now = buf.trim().parse::<u32>().unwrap();
+    let mut batteries = if let Ok(batteries) = battery_manager.batteries() {
+        batteries
+    } else {
+        return ThreadsData::Battery(String::from("Cannot Get Battery!"));
+    };
 
-    let battery_percentage = (charge_now as f32 / full_design as f32) * 100.0;
+    let percentage = if let Some(battery) = batteries.next() {
+        f32::from(battery.unwrap().state_of_charge()) * 100.0
+    } else {
+        return ThreadsData::Battery(String::from("Cannot Read Battery!"));
+    };
+
     let result = format!(
         "  {}  {:.0}%  {}",
-        CONFIG.battery.icon, battery_percentage, CONFIG.seperator
+        CONFIG.battery.icon, percentage, CONFIG.seperator
     );
     ThreadsData::Battery(result)
 }

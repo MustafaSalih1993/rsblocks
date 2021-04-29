@@ -2,7 +2,6 @@ use crate::config::CONFIG;
 use crate::types::ThreadsData;
 use mpd::{Client, Song};
 
-// yes, error handling looks fucking sucks!
 // getting mpd song file
 pub fn get_mpd_current() -> ThreadsData {
     let stream_path = format!("{}:{}", CONFIG.mpd.host, CONFIG.mpd.port);
@@ -12,10 +11,7 @@ pub fn get_mpd_current() -> ThreadsData {
         _ => return empty_data,
     };
     let current: Song = match conn.currentsong() {
-        Ok(opt) => match opt {
-            Some(song) => song,
-            _ => return empty_data,
-        },
+        Ok(Some(song)) => song,
         _ => return empty_data,
     };
 
