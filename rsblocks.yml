@@ -14,7 +14,7 @@ time:
 # public ip address  
 pub_ip:
   delay: 120.0
-  enabled: true
+  enabled: false
   icon: ''
   
 
@@ -24,14 +24,6 @@ netspeed:
   interface: 'wlan0'
   recieve_icon: ''
   transmit_icon: ''
-
-
-# ethernet/wifi bandwith  
-netspeed:
-  transmit_icon: ''
-  recieve_icon: ''
-  interface: 'wlan0'
-  enabled: false
   
   
 memory:
@@ -42,7 +34,7 @@ memory:
   
 disk:
   delay: 120.0
-  enabled: false
+  enabled: true
   icon: ''
 
   
@@ -104,6 +96,6 @@ spotify:
 weather:
   city: ''        
   delay: 7200.0   # 7200 seconds = 2 hours
-  enabled: true
+  enabled: false
   format: '%l:+%t'
   icon: ''
