@@ -1,6 +1,6 @@
 [package]
 name = "rsblocks"
-version = "0.1.15"
+version = "0.1.16"
 authors = ["mustafa salih <mustafasalih1991@gmail.com>"]
 edition = "2018"
 readme = "README.md"
@@ -11,15 +11,15 @@ description = "a multi threaded status bar for dwm window manager for linux"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-alsa = "0.4.3"
+alsa = "0.5"
 chrono = "0.4"
-dbus = "0.9.1"
-lazy_static = "1.4.0"
-minreq = {version = "2.2.1", features = ["https","json-using-serde"]}
+dbus = "0.9"
+lazy_static = "1.4"
+minreq = {version = "2.2", features = ["https","json-using-serde"]}
 mpd = "0.0.12"
-nix = "0.19.1"
-serde = {version = "1.0.120", features = ["derive"]}
-serde_yaml = "0.8.15"
+nix = "0.20"
+serde = {version = "1.0", features = ["derive"]}
+serde_yaml = "0.8"
 battery = "0.7"
 
 [dependencies.breadx]
