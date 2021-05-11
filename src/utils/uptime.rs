@@ -1,17 +1,14 @@
 use crate::config::CONFIG;
 use crate::types::ThreadsData;
-use std::fs::read_to_string;
+use chrono::Duration;
+use nix::sys::sysinfo;
 
 pub fn get_uptime() -> ThreadsData {
-    let buf = match read_to_string("/proc/uptime") {
-        Ok(data) => data,
-        _ => return ThreadsData::Uptime("cant find uptime file!".to_string()),
-    };
+    let duration = sysinfo::sysinfo().unwrap().uptime();
+    let uptime_sec = Duration::from_std(duration).unwrap().num_seconds();
 
-    let buf: f32 = buf.split(' ').collect::<Vec<&str>>()[0].parse().unwrap();
-
-    let hour = buf.round() as u32 / 3600;
-    let rem = buf as u32 - hour * 3600;
+    let hour = uptime_sec / 3600;
+    let rem = uptime_sec - hour * 3600;
     let minutes = rem / 60;
 
     let uptime = if hour > 0 {
