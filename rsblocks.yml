@@ -11,6 +11,13 @@ time:
   icon: ''
 
 
+# Time of the system has been running
+uptime:
+  delay: 15.0
+  enabled: false
+  icon: ''
+
+
 # public ip address  
 pub_ip:
   delay: 120.0
@@ -18,7 +25,7 @@ pub_ip:
   icon: ''
   
 
-# ethernet/wifi bandwith  
+# ethernet/wifi bandwith (no delay for this since it will calculate the bandwith every second)
 netspeed:
   enabled: false
   interface: 'wlan0'
@@ -50,9 +57,9 @@ cpu_temperature:
   icon: ''
 
 
-# cpu load average  
+# cpu load average from the last minute
 loadavg:
-  delay: 2.0
+  delay: 15.0
   enabled: false
   icon: ''
 
