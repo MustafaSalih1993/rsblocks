@@ -1,5 +1,6 @@
 use crate::config::CONFIG;
 use crate::types::*;
+use crate::blockmanager::*;
 use crate::utils::*;
 use std::sync::mpsc;
 use std::thread;
@@ -117,19 +118,8 @@ pub fn run(mut blocks: BlockManager) {
             }
 
             // match ends here
-            update(&bar, &mut blocks);
+            blocks.update(&bar);
         }
     }
 }
 
-fn update(bar: &[String], blocks: &mut BlockManager) {
-    let mut x = String::new();
-    for i in bar.iter() {
-        x.push_str(i.as_str());
-    }
-
-    blocks
-        .root
-        .set_title(&mut blocks.disp, &x)
-        .expect("Failed to set title of root");
-}

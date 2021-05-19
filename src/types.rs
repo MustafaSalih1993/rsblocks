@@ -1,4 +1,3 @@
-use breadx::{display::*, window::Window};
 
 #[derive(Debug, Clone)]
 pub enum ThreadsData {
@@ -140,21 +139,3 @@ pub struct BitCoins {
     pub delay: f64,
 }
 
-pub struct BlockManager {
-    pub disp: Display<name::NameConnection>,
-    pub root: Window,
-}
-
-impl BlockManager {
-    pub fn new() -> Self {
-        let disp = Display::create(None, None).expect("Failed to create x11 connection");
-        let root = disp.default_screen().root;
-        Self { disp, root }
-    }
-}
-
-impl Default for BlockManager {
-    fn default() -> Self {
-        Self::new()
-    }
-}
