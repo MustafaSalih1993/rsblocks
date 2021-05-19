@@ -13,15 +13,28 @@ description = "a multi threaded status bar for dwm window manager for linux"
 [dependencies]
 alsa = "0.5"
 chrono = "0.4"
-dbus = "0.9"
-lazy_static = "1.4"
-minreq = {version = "2.2", features = ["https","json-using-serde"]}
 mpd = "0.0.12"
 nix = "0.20"
-serde = {version = "1.0", features = ["derive"]}
-serde_yaml = "0.8"
 battery = "0.7"
+dbus = "0.9.1"
+serde_yaml = "0.8.15"
+lazy_static = "1.4.0"
+
+# Async deps
+futures = "0.3.15"
+
+[dependencies.tokio]
+version = "1.6.0"
+features = ["full"]
+
+[dependencies.serde]
+version = "1.0.120"
+features = ["derive"]
 
 [dependencies.breadx]
 version = "0.1.11"
 features = ["async"]
+
+[dependencies.minreq]
+version = "2.2"
+features = ["https", "json-using-serde"]
