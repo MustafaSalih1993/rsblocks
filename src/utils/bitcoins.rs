@@ -7,7 +7,7 @@ struct Response {
     price_24h: f64,
 }
 
-pub fn get_price() -> ThreadsData {
+pub async fn get_price() -> ThreadsData {
     let url = format!(
         "https://api.blockchain.com/v3/exchange/tickers/{}",
         CONFIG.bitcoins.symbol

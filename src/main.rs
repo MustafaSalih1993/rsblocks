@@ -11,7 +11,7 @@ use blockmanager::BlockManager;
 
 use lazy_static::initialize;
 
-#[tokio::main]
+#[async_std::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     initialize(&config::CONFIG);
@@ -23,6 +23,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     let blocks = BlockManager::new();
-    run::run(blocks);
+    run::run(blocks).await;
     Ok(())
 }

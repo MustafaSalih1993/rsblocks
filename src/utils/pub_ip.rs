@@ -1,7 +1,7 @@
 use crate::config::CONFIG;
 use crate::types::ThreadsData;
 
-pub fn get_pub_ip() -> ThreadsData {
+pub async fn get_pub_ip() -> ThreadsData {
     let url = "http://api.ipify.org".to_string();
     let _err = String::from("Error");
     let res = match minreq::get(url).send() {

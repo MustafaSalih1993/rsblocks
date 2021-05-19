@@ -3,7 +3,7 @@ use crate::types::ThreadsData;
 use mpd::{Client, Song};
 
 // getting mpd song file
-pub fn get_mpd_current() -> ThreadsData {
+pub async fn get_mpd_current() -> ThreadsData {
     let stream_path = format!("{}:{}", CONFIG.mpd.host, CONFIG.mpd.port);
     let empty_data = ThreadsData::Mpd(String::from(""));
     let mut conn = match Client::connect(&stream_path) {

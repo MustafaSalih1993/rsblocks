@@ -1,13 +1,13 @@
 use crate::config::CONFIG;
 use crate::types::ThreadsData;
 use std::fs::read_to_string;
-use std::thread;
+use async_std::task::sleep;
 use std::time::Duration;
 
-pub fn get_netspeed() -> ThreadsData {
+pub async fn get_netspeed() -> ThreadsData {
     let tx1: u64 = parse_speed_file("tx_bytes");
     let rx1: u64 = parse_speed_file("rx_bytes");
-    thread::sleep(Duration::from_secs(1));
+    sleep(Duration::from_secs(1)).await;
     let tx2: u64 = parse_speed_file("tx_bytes");
     let rx2: u64 = parse_speed_file("rx_bytes");
 

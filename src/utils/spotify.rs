@@ -5,7 +5,7 @@ use dbus::{arg, blocking::Connection};
 use std::time::Duration;
 
 // getting spotify current artist and title.
-pub fn get_spotify() -> ThreadsData {
+pub async fn get_spotify() -> ThreadsData {
     let empty_data = ThreadsData::Spotify(String::from(""));
     let conn = match Connection::new_session() {
         Ok(conn) => conn,

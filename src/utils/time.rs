@@ -2,7 +2,7 @@ use crate::config::CONFIG;
 use crate::types::ThreadsData;
 use chrono::prelude::*;
 
-pub fn get_time() -> ThreadsData {
+pub async fn get_time() -> ThreadsData {
     let now = Local::now();
 
     let data = format!(
@@ -11,6 +11,6 @@ pub fn get_time() -> ThreadsData {
         now.format(&CONFIG.time.format),
         CONFIG.seperator
     );
-
+    println!("Time tick");
     ThreadsData::Time(data)
 }

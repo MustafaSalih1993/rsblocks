@@ -3,7 +3,7 @@ use crate::types::ThreadsData;
 
 use nix::libc::{c_double, c_int, getloadavg};
 
-pub fn get_load_avg() -> ThreadsData {
+pub async fn get_load_avg() -> ThreadsData {
     let mut data: [c_double; 3] = [0f64; 3];
     unsafe { getloadavg(data.as_mut_ptr(), data.len() as c_int) };
     let [load, _, _] = data;

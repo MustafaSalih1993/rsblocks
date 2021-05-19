@@ -1,125 +1,122 @@
+use crate::blockmanager::*;
 use crate::config::CONFIG;
 use crate::types::*;
-use crate::blockmanager::*;
 use crate::utils::*;
-use std::sync::mpsc;
-use std::thread;
+use async_std::channel::{unbounded, Sender};
+use async_std::task;
+use async_std::task::sleep;
+use futures::future;
+use futures::stream::StreamExt;
 use std::time::Duration;
+use std::future::Future;
 
-fn spawn_thread_loop<F>(tx: std::sync::mpsc::Sender<ThreadsData>, data: F, delay: f64)
+
+
+async fn init_block<F, Fut>(tx: Sender<ThreadsData>, block: F, delay: f64)
 where
-    F: Fn() -> ThreadsData + Send + 'static,
+    F: Fn() -> Fut,
+    Fut: Future<Output=ThreadsData>
 {
-    thread::spawn(move || loop {
-        tx.send(data()).unwrap();
-        thread::sleep(Duration::from_secs_f64(delay));
-    });
+    loop {
+        let _ = tx.send(block().await).await;
+        sleep(Duration::from_secs_f64(delay)).await;
+        println!("Main tick");
+    }
 }
 
-pub fn run(mut blocks: BlockManager) {
-    let (tx, rx) = mpsc::channel();
+pub async fn run(mut blocks: BlockManager) {
+    let (tx, rx) = unbounded();
 
-    // loadavrage thread
+    // loadavrage task
     if CONFIG.loadavg.enabled {
-        spawn_thread_loop(tx.clone(), load_average::get_load_avg, CONFIG.loadavg.delay);
+        let b = init_block(tx.clone(), load_average::get_load_avg, CONFIG.loadavg.delay);
+        task::spawn(b);
     }
-    // public ip thread
+    // public ip task
     if CONFIG.pub_ip.enabled {
-        spawn_thread_loop(tx.clone(), pub_ip::get_pub_ip, CONFIG.pub_ip.delay);
+        let b = init_block(tx.clone(), pub_ip::get_pub_ip, CONFIG.pub_ip.delay);
+        task::spawn(b);
     }
 
-    // spotify thread
+    // spotify task
     if CONFIG.spotify.enabled {
-        spawn_thread_loop(tx.clone(), spotify::get_spotify, CONFIG.spotify.delay);
+        let b = init_block(tx.clone(), spotify::get_spotify, CONFIG.spotify.delay);
+        task::spawn(b);
     }
 
-    // mpd thread
+    // mpd task
     if CONFIG.mpd.enabled {
-        spawn_thread_loop(tx.clone(), mpd::get_mpd_current, CONFIG.mpd.delay);
+        let b = init_block(tx.clone(), mpd::get_mpd_current, CONFIG.mpd.delay);
+        task::spawn(b);
     }
 
-    // volume thread
+    // volume task
     if CONFIG.volume.enabled {
-        spawn_thread_loop(tx.clone(), volume::get_volume, CONFIG.volume.delay);
+        let b = init_block(tx.clone(), volume::get_volume, CONFIG.volume.delay);
+        task::spawn(b);
     }
 
-    // Disk thread
-    if CONFIG.disk.enabled {
-        spawn_thread_loop(tx.clone(), disk::get_disk, CONFIG.disk.delay);
+    // Disk task
+    if
+    /*CONFIG.disk.enabled*/
+    false {
+        let b = init_block(tx.clone(), disk::get_disk, CONFIG.disk.delay);
+        task::spawn(b);
     }
 
-    // Memory thread
-    if CONFIG.memory.enabled {
-        spawn_thread_loop(tx.clone(), memory::get_memory, CONFIG.memory.delay);
+    // Memory task
+    if
+    /*CONFIG.memory.enabled*/
+    false {
+        let b = init_block(tx.clone(), memory::get_memory, CONFIG.memory.delay);
+        task::spawn(b);
     }
 
-    // Weather thread
+    // Weather task
     if CONFIG.weather.enabled {
-        spawn_thread_loop(tx.clone(), weather::get_weather, CONFIG.weather.delay);
+        let b = init_block(tx.clone(), weather::get_weather, CONFIG.weather.delay);
+        task::spawn(b);
     }
 
-    // Battery thread
+    // Battery task
     if CONFIG.battery.enabled {
-        spawn_thread_loop(tx.clone(), battery::get_battery, CONFIG.battery.delay);
+        let b = init_block(tx.clone(), battery::get_battery, CONFIG.battery.delay);
+        task::spawn(b);
     }
 
-    // Cpu temperature thread
+    // Cpu temperature task
     if CONFIG.cpu_temperature.enabled {
-        spawn_thread_loop(tx.clone(), cpu::get_cpu_temp, CONFIG.cpu_temperature.delay);
+        let b = init_block(tx.clone(), cpu::get_cpu_temp, CONFIG.cpu_temperature.delay);
+        task::spawn(b);
     }
 
-    // Uptime thread
+    // Uptime task
     if CONFIG.uptime.enabled {
-        spawn_thread_loop(tx.clone(), uptime::get_uptime, CONFIG.uptime.delay);
+        let b = init_block(tx.clone(), uptime::get_uptime, CONFIG.uptime.delay);
+        task::spawn(b);
     }
 
-    // BTC thread
+    // BTC task
     if CONFIG.bitcoins.enabled {
-        spawn_thread_loop(tx.clone(), bitcoins::get_price, CONFIG.bitcoins.delay);
+        let b = init_block(tx.clone(), bitcoins::get_price, CONFIG.bitcoins.delay);
+        task::spawn(b);
     }
 
-    // net speed thread
-    // get_netspeed will sleep inside the function
+    // net speed task
     if CONFIG.netspeed.enabled {
-        let net_tx = tx.clone();
-        thread::spawn(move || loop {
-            let net_data = netspeed::get_netspeed();
-            net_tx.send(net_data).unwrap();
-        });
+        let b = init_block(tx.clone(), netspeed::get_netspeed, 0.);
+        task::spawn(b);
     }
 
-    // Time thread
-    {
-        spawn_thread_loop(tx, time::get_time, CONFIG.time.delay);
-    }
+    // Time task
+    let b = init_block(tx, time::get_time, CONFIG.time.delay);
+    task::spawn(b);
 
-    //Main
-    {
-        // NOTE: order matters to the final format
+    // NOTE: order matters to the final format
 
-        let mut bar: Vec<String> = vec![String::from(""); 14];
-        //iterating the values recieved from the threads
-        for data in rx {
-            match data {
-                ThreadsData::Spotify(x) => bar[0] = x,
-                ThreadsData::Mpd(x) => bar[1] = x,
-                ThreadsData::Sound(x) => bar[2] = x,
-                ThreadsData::Weather(x) => bar[3] = x,
-                ThreadsData::NetSpeed(x) => bar[4] = x,
-                ThreadsData::BitCoins(x) => bar[5] = x,
-                ThreadsData::PubIp(x) => bar[6] = x,
-                ThreadsData::Disk(x) => bar[7] = x,
-                ThreadsData::Memory(x) => bar[8] = x,
-                ThreadsData::CpuTemp(x) => bar[9] = x,
-                ThreadsData::LoadAvg(x) => bar[10] = x,
-                ThreadsData::Battery(x) => bar[11] = x,
-                ThreadsData::Uptime(x) => bar[12] = x,
-                ThreadsData::Time(x) => bar[13] = x,
-            }
-
-            // match ends here
-            blocks.update(&bar);
-        }
-    }
+    rx.for_each(|data| {
+        blocks.update(data);
+        future::ready(())
+    })
+    .await;
 }
-

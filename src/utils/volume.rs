@@ -3,7 +3,7 @@ use crate::types::ThreadsData;
 use alsa::mixer::{Mixer, SelemChannelId, SelemId};
 
 // getting volume percentage
-pub fn get_volume() -> ThreadsData {
+pub async fn get_volume() -> ThreadsData {
     let card = if CONFIG.volume.card == "PULSE" {
         "pulse"
     } else {

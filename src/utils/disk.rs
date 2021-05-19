@@ -1,7 +1,7 @@
 use crate::config::CONFIG;
 use crate::types::ThreadsData;
 
-pub fn get_disk() -> ThreadsData {
+pub async fn get_disk() -> ThreadsData {
     const GB: u64 = (1024 * 1024) * 1024;
     let statvfs = nix::sys::statvfs::statvfs("/").unwrap();
     let mut disk_used = String::new();

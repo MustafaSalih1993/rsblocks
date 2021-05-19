@@ -3,7 +3,7 @@ use crate::types::ThreadsData;
 use std::fs::read_to_string;
 
 // getting cpu temperature
-pub fn get_cpu_temp() -> ThreadsData {
+pub async fn get_cpu_temp() -> ThreadsData {
     let buf = match read_to_string("/sys/class/thermal/thermal_zone0/temp") {
         Ok(data) => data,
         _ => return ThreadsData::CpuTemp(String::from("Error reading temp")),

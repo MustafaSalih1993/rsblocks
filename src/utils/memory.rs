@@ -7,7 +7,7 @@ mem_used = (mem_total + shmem - mem_free - mem_buffers - mem_cached - mem_srecl
 thanks for htop's developer on stackoverflow for providing this algorithm to
 calculate used memory.
 */
-pub fn get_memory() -> ThreadsData {
+pub async fn get_memory() -> ThreadsData {
     let buf = match read_to_string("/proc/meminfo") {
         Ok(data) => data,
         _ => return ThreadsData::Memory(String::from("Error Reading memory!")),

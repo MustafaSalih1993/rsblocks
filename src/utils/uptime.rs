@@ -2,7 +2,7 @@ use crate::config::CONFIG;
 use crate::types::ThreadsData;
 use nix::time::clock_gettime;
 
-pub fn get_uptime() -> ThreadsData {
+pub async fn get_uptime() -> ThreadsData {
     let (_, hour, minutes, seconds) = get_uptime_data();
     let uptime = if hour > 0 {
         format!("{}:{}:{}", hour, minutes, seconds)

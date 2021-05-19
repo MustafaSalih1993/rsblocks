@@ -5,7 +5,7 @@ use battery::Manager;
 // TODO: better error handeling
 
 // getting battery percentage
-pub fn get_battery() -> ThreadsData {
+pub async fn get_battery() -> ThreadsData {
     let battery_manager = if let Ok(manager) = Manager::new() {
         manager
     } else {

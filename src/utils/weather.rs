@@ -2,7 +2,7 @@ use crate::config::CONFIG;
 use crate::types::ThreadsData;
 
 // will make a GET request from wttr.in
-pub fn get_weather() -> ThreadsData {
+pub async fn get_weather() -> ThreadsData {
     let format = if CONFIG.weather.format.is_empty() {
         String::from("%l:+%t")
     } else {
