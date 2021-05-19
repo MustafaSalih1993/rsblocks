@@ -11,6 +11,5 @@ pub async fn get_time() -> ThreadsData {
         now.format(&CONFIG.time.format),
         CONFIG.seperator
     );
-    println!("Time tick");
     ThreadsData::Time(data)
 }

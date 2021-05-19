@@ -20,7 +20,6 @@ where
     loop {
         let _ = tx.send(block().await).await;
         sleep(Duration::from_secs_f64(delay)).await;
-        println!("Main tick");
     }
 }
 
