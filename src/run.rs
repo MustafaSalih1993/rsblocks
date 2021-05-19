@@ -15,7 +15,7 @@ where
     });
 }
 
-pub fn run(mut blocks: Blocks) {
+pub fn run(mut blocks: BlockManager) {
     let (tx, rx) = mpsc::channel();
 
     // loadavrage thread
@@ -122,7 +122,7 @@ pub fn run(mut blocks: Blocks) {
     }
 }
 
-fn update(bar: &[String], blocks: &mut Blocks) {
+fn update(bar: &[String], blocks: &mut BlockManager) {
     let mut x = String::new();
     for i in bar.iter() {
         x.push_str(i.as_str());

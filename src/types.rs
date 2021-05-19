@@ -140,12 +140,12 @@ pub struct BitCoins {
     pub delay: f64,
 }
 
-pub struct Blocks {
+pub struct BlockManager {
     pub disp: Display<name::NameConnection>,
     pub root: Window,
 }
 
-impl Blocks {
+impl BlockManager {
     pub fn new() -> Self {
         let disp = Display::create(None, None).expect("Failed to create x11 connection");
         let root = disp.default_screen().root;
@@ -153,7 +153,7 @@ impl Blocks {
     }
 }
 
-impl Default for Blocks {
+impl Default for BlockManager {
     fn default() -> Self {
         Self::new()
     }

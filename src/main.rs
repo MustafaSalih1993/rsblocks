@@ -7,7 +7,8 @@ use std::process;
 
 use lazy_static::initialize;
 
-fn main() {
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     initialize(&config::CONFIG);
 
@@ -17,6 +18,7 @@ fn main() {
         process::exit(1);
     };
 
-    let blocks = types::Blocks::new();
+    let blocks = types::BlockManager::new();
     run::run(blocks);
+    Ok(())
 }
