@@ -7,15 +7,13 @@ use async_std::task;
 use async_std::task::sleep;
 use futures::future;
 use futures::stream::StreamExt;
-use std::time::Duration;
 use std::future::Future;
-
-
+use std::time::Duration;
 
 async fn init_block<F, Fut>(tx: Sender<ThreadsData>, block: F, delay: f64)
 where
     F: Fn() -> Fut,
-    Fut: Future<Output=ThreadsData>
+    Fut: Future<Output = ThreadsData>,
 {
     loop {
         let _ = tx.send(block().await).await;
@@ -56,17 +54,13 @@ pub async fn run(mut blocks: BlockManager) {
     }
 
     // Disk task
-    if
-    /*CONFIG.disk.enabled*/
-    false {
+    if CONFIG.disk.enabled {
         let b = init_block(tx.clone(), disk::get_disk, CONFIG.disk.delay);
         task::spawn(b);
     }
 
     // Memory task
-    if
-    /*CONFIG.memory.enabled*/
-    false {
+    if CONFIG.memory.enabled {
         let b = init_block(tx.clone(), memory::get_memory, CONFIG.memory.delay);
         task::spawn(b);
     }
@@ -110,8 +104,6 @@ pub async fn run(mut blocks: BlockManager) {
     // Time task
     let b = init_block(tx, time::get_time, CONFIG.time.delay);
     task::spawn(b);
-
-    // NOTE: order matters to the final format
 
     rx.for_each(|data| {
         blocks.update(data);
