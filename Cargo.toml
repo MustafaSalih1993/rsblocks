@@ -37,7 +37,7 @@ version = "1.0.120"
 features = ["derive"]
 
 [dependencies.breadx]
-version = "0.1.11"
+version = "0.2.9"
 features = ["async"]
 
 [dependencies.minreq]

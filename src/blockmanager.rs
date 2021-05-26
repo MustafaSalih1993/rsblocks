@@ -1,4 +1,4 @@
-use breadx::{display::*, window::Window};
+use breadx::{display::*, Window};
 use crate::types::ThreadsData;
 
 pub struct BlockManager {

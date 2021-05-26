@@ -233,9 +233,9 @@ dependencies = [
 
 [[package]]
 name = "breadx"
-version = "0.1.12"
+version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "31dd6e33f086d25e35f64029cf4680bc1117b4d33053971e7943ae4c1b70fa89"
+checksum = "8eab994d374f66b97d51018b4ab6c581487a25ffb13fef2697701bde6a0d54b1"
 dependencies = [
  "async-io",
  "async-net",
@@ -244,6 +244,7 @@ dependencies = [
  "cfg-if",
  "cty",
  "futures-lite",
+ "gluten-keyboard",
  "hashbrown",
  "log",
  "memchr",
@@ -511,6 +512,12 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
 ]
+
+[[package]]
+name = "gluten-keyboard"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8d2d1da7d790eb1e73f1bfd3099f59b89ab1eb09f8f1723caab79f8a65c54cdf"
 
 [[package]]
 name = "hashbrown"
