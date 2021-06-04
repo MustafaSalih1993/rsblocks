@@ -1,4 +1,3 @@
-
 #[derive(Debug, Clone)]
 pub enum ThreadsData {
     Mpd(String),
@@ -14,6 +13,7 @@ pub enum ThreadsData {
     LoadAvg(String),
     NetSpeed(String),
     PubIp(String),
+    LocalIp(String),
     BitCoins(String),
 }
 
@@ -32,6 +32,7 @@ pub struct Config {
     pub spotify: Spotify,
     pub loadavg: LoadAvg,
     pub pub_ip: PubIp,
+    pub local_ip: LocalIp,
     pub bitcoins: BitCoins,
 }
 
@@ -132,10 +133,16 @@ pub struct PubIp {
 }
 
 #[derive(Clone)]
+pub struct LocalIp {
+    pub icon: String,
+    pub enabled: bool,
+    pub delay: f64,
+}
+
+#[derive(Clone)]
 pub struct BitCoins {
     pub icon: String,
     pub symbol: String,
     pub enabled: bool,
     pub delay: f64,
 }
-

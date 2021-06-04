@@ -1,5 +1,5 @@
-use breadx::{display::*, Window};
 use crate::types::ThreadsData;
+use breadx::{display::*, Window};
 
 pub struct BlockManager {
     pub disp: Display<name::NameConnection>,
@@ -13,7 +13,7 @@ impl BlockManager {
         let root = disp.default_screen().root;
         Self {
             disp,
-            blocks: vec![String::from(""); 14],
+            blocks: vec![String::from(""); 15],
             root,
         }
     }
@@ -27,13 +27,14 @@ impl BlockManager {
             ThreadsData::NetSpeed(x) => self.blocks[4] = x,
             ThreadsData::BitCoins(x) => self.blocks[5] = x,
             ThreadsData::PubIp(x) => self.blocks[6] = x,
-            ThreadsData::Disk(x) => self.blocks[7] = x,
-            ThreadsData::Memory(x) => self.blocks[8] = x,
-            ThreadsData::CpuTemp(x) => self.blocks[9] = x,
-            ThreadsData::LoadAvg(x) => self.blocks[10] = x,
-            ThreadsData::Battery(x) => self.blocks[11] = x,
-            ThreadsData::Uptime(x) => self.blocks[12] = x,
-            ThreadsData::Time(x) => self.blocks[13] = x,
+            ThreadsData::LocalIp(x) => self.blocks[7] = x,
+            ThreadsData::Disk(x) => self.blocks[8] = x,
+            ThreadsData::Memory(x) => self.blocks[9] = x,
+            ThreadsData::CpuTemp(x) => self.blocks[10] = x,
+            ThreadsData::LoadAvg(x) => self.blocks[11] = x,
+            ThreadsData::Battery(x) => self.blocks[12] = x,
+            ThreadsData::Uptime(x) => self.blocks[13] = x,
+            ThreadsData::Time(x) => self.blocks[14] = x,
         }
         let mut x = String::new();
         for i in self.blocks.iter() {
@@ -43,7 +44,6 @@ impl BlockManager {
         self.root
             .set_title(&mut self.disp, &x)
             .expect("Failed to set title");
-        
     }
 }
 

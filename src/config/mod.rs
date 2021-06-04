@@ -3,6 +3,7 @@ mod bitcoins;
 mod cputemp;
 mod disk;
 mod loadavg;
+mod local_ip;
 mod memory;
 mod mpd;
 mod netspeed;
@@ -19,6 +20,7 @@ use bitcoins::BitCoins;
 use cputemp::CpuTemp;
 use disk::Disk;
 use loadavg::LoadAvg;
+use local_ip::LocalIp;
 use memory::Memory;
 use netspeed::NetSpeed;
 use pub_ip::PubIp;
@@ -102,6 +104,9 @@ pub struct Config {
     pub pub_ip: PubIp,
 
     #[serde(default)]
+    pub local_ip: LocalIp,
+
+    #[serde(default)]
     pub bitcoins: BitCoins,
 }
 
@@ -122,6 +127,7 @@ impl Default for Config {
             loadavg: Default::default(),
             netspeed: Default::default(),
             pub_ip: Default::default(),
+            local_ip: Default::default(),
             bitcoins: Default::default(),
         }
     }
