@@ -23,8 +23,14 @@ pub_ip:
   delay: 120.0
   enabled: false
   icon: ''
-  
 
+# local ip address  
+local_ip:
+  icon: ''
+  enabled: true
+  interface: 'wlo1' #network interface required for now..
+  delay: 120.0
+  
 # ethernet/wifi bandwith (no delay for this since it will calculate the bandwith every second)
 netspeed:
   enabled: false
