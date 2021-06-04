@@ -13,9 +13,9 @@ impl Default for LocalIp {
     fn default() -> Self {
         LocalIp {
             icon: String::from(""),
-            enabled: true,
+            enabled: false,
             delay: 120.0,
-            interface: String::from("wlo1"),
+            interface: String::from("wlan0"),
         }
     }
 }
