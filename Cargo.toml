@@ -1,6 +1,6 @@
 [package]
 name = "rsblocks"
-version = "0.1.18"
+version = "0.1.19"
 authors = ["mustafa salih <mustafasalih1991@gmail.com>"]
 edition = "2018"
 readme = "README.md"
@@ -14,10 +14,10 @@ description = "a multi threaded status bar for dwm window manager for linux"
 alsa = "0.5"
 chrono = "0.4"
 mpd = "0.0.12"
-nix = "0.20"
+nix = "0.22"
 battery = "0.7"
-dbus = "0.9.1"
-serde_yaml = "0.8.15"
+dbus = "0.9"
+serde_yaml = "0.8.20"
 lazy_static = "1.4.0"
 
 # Async deps

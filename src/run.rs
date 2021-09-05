@@ -95,6 +95,16 @@ pub async fn run(mut blocks: BlockManager) {
         task::spawn(b);
     }
 
+    // brightness task
+    if CONFIG.brightness.enabled {
+        let b = init_block(
+            tx.clone(),
+            brightness::get_brightness,
+            CONFIG.brightness.delay,
+        );
+        task::spawn(b);
+    }
+
     // BTC task
     if CONFIG.bitcoins.enabled {
         let b = init_block(tx.clone(), bitcoins::get_price, CONFIG.bitcoins.delay);

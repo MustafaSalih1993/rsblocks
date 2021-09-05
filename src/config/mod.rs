@@ -1,5 +1,6 @@
 mod battery;
 mod bitcoins;
+mod brightness;
 mod cputemp;
 mod disk;
 mod loadavg;
@@ -17,6 +18,7 @@ mod weather;
 use self::battery::Battery;
 use self::mpd::Mpd;
 use bitcoins::BitCoins;
+use brightness::Brightness;
 use cputemp::CpuTemp;
 use disk::Disk;
 use loadavg::LoadAvg;
@@ -83,6 +85,9 @@ pub struct Config {
     pub battery: Battery,
 
     #[serde(default)]
+    pub brightness: Brightness,
+
+    #[serde(default)]
     pub cpu_temperature: CpuTemp,
 
     #[serde(default)]
@@ -120,6 +125,7 @@ impl Default for Config {
             volume: Default::default(),
             weather: Default::default(),
             battery: Default::default(),
+            brightness: Default::default(),
             cpu_temperature: Default::default(),
             uptime: Default::default(),
             mpd: Default::default(),

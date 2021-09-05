@@ -10,20 +10,22 @@ A multi threaded fast status bar for dwm window manager written in **Rust** 🦀
 
 ## Features
 * Multi Threads
-* Time/Date
-* Net Usage
-* Memory Usage
-* Disk Usage
-* Weather Temperature
-* Sound Volume
 * Battery Percentage
-* Cpu Temperature
-* Load Average
-* Public Ip Address
 * Bitcoin Price
-* Uptime
+* Brightness
+* Cpu Temperature
+* Disk Usage
+* Load Average
+* Local Ip Address
+* Memory Usage
 * Mpd Current Song
+* Net Usage
+* Public Ip Address
+* Sound Volume
 * Spotify Current Song
+* Time/Date
+* Uptime
+* Weather Temperature
 * Easy to configure with `rsblocks.yml` file
 
 

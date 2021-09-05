@@ -13,11 +13,11 @@ impl BlockManager {
         let root = disp.default_screen().root;
         Self {
             disp,
-            blocks: vec![String::from(""); 15],
+            blocks: vec![String::from(""); 16],
             root,
         }
     }
-
+    // TODO let the user control the indexes of the blocks
     pub fn update(&mut self, data: ThreadsData) {
         match data {
             ThreadsData::Spotify(x) => self.blocks[0] = x,
@@ -32,9 +32,10 @@ impl BlockManager {
             ThreadsData::Memory(x) => self.blocks[9] = x,
             ThreadsData::CpuTemp(x) => self.blocks[10] = x,
             ThreadsData::LoadAvg(x) => self.blocks[11] = x,
-            ThreadsData::Battery(x) => self.blocks[12] = x,
-            ThreadsData::Uptime(x) => self.blocks[13] = x,
-            ThreadsData::Time(x) => self.blocks[14] = x,
+            ThreadsData::Brightness(x) => self.blocks[12] = x,
+            ThreadsData::Battery(x) => self.blocks[13] = x,
+            ThreadsData::Uptime(x) => self.blocks[14] = x,
+            ThreadsData::Time(x) => self.blocks[15] = x,
         }
         let mut x = String::new();
         for i in self.blocks.iter() {

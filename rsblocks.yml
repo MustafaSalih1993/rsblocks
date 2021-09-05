@@ -11,6 +11,15 @@ time:
   icon: ''
 
 
+# Display brightness percentage  
+brightness:
+  icon: ''
+  delay: 60.0 
+  enabled: false
+  # read the output of the command "ls /sys/class/backlight" to match with the path below
+  path: '/sys/class/backlight/intel_backlight'
+
+  
 # Time of the system has been running
 uptime:
   delay: 15.0
