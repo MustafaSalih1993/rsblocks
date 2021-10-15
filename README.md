@@ -3,13 +3,13 @@
 [<img alt="crates" src="https://img.shields.io/crates/v/rsblocks?logo=rust&logoColor=a9b1d6&style=flat-square&color=fc8d62" height="20">](https://crates.io/crates/rsblocks)
 
 
-A multi threaded fast status bar for dwm window manager written in **Rust** 🦀
+A status bar for dwm window manager written in **Rust** 🦀
 <p>
 <img align="center" src="./screenshots/2.png"/>
 </p><br/>
 
 ## Features
-* Multi Threads
+* Async
 * Battery Percentage
 * Bitcoin Price
 * Brightness

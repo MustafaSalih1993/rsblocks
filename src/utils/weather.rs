@@ -12,10 +12,16 @@ pub async fn get_weather() -> ThreadsData {
     let url = format!("http://wttr.in/{}?format=\"{}", CONFIG.weather.city, format);
     let err_string = String::from("Error");
     let res = match minreq::get(url).send() {
-        Ok(resp) => match resp.as_str() {
-            Ok(res_str) => res_str.trim_matches('"').to_string(),
-            Err(_) => err_string,
-        },
+        Ok(resp) => {
+            if resp.status_code != 200 {
+                String::from("service error")
+            } else {
+                match resp.as_str() {
+                    Ok(res_str) => res_str.trim_matches('"').to_string(),
+                    Err(_) => err_string,
+                }
+            }
+        }
         Err(_) => err_string,
     };
 
