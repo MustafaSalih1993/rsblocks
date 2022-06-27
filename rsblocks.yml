@@ -121,3 +121,9 @@ weather:
   enabled: false
   format: '%l:+%t'
   icon: ''
+
+nordvpn:
+  delay: 30.0
+  enabled: false
+  showip: true
+  icon: '撚'

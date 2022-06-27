@@ -14,3 +14,4 @@ pub mod time;
 pub mod uptime;
 pub mod volume;
 pub mod weather;
+pub mod nordvpn;

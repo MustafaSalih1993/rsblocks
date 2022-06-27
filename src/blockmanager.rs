@@ -13,7 +13,7 @@ impl BlockManager {
         let root = disp.default_screen().root;
         Self {
             disp,
-            blocks: vec![String::from(""); 16],
+            blocks: vec![String::from(""); 17],
             root,
         }
     }
@@ -35,7 +35,8 @@ impl BlockManager {
             ThreadsData::Brightness(x) => self.blocks[12] = x,
             ThreadsData::Battery(x) => self.blocks[13] = x,
             ThreadsData::Uptime(x) => self.blocks[14] = x,
-            ThreadsData::Time(x) => self.blocks[15] = x,
+            ThreadsData::Nordvpn(x) => self.blocks[15] = x,
+            ThreadsData::Time(x) => self.blocks[16] = x,
         }
         let mut x = String::new();
         for i in self.blocks.iter() {

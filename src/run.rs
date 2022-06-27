@@ -117,6 +117,12 @@ pub async fn run(mut blocks: BlockManager) {
         task::spawn(b);
     }
 
+    // Nordvpn task
+    if CONFIG.nordvpn.enabled {
+        let b = init_block(tx.clone(), nordvpn::get_nordvpn, CONFIG.nordvpn.delay);
+        task::spawn(b);
+    }
+
     // Time task
     let b = init_block(tx, time::get_time, CONFIG.time.delay);
     task::spawn(b);

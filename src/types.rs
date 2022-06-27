@@ -16,6 +16,7 @@ pub enum ThreadsData {
     LocalIp(String),
     BitCoins(String),
     Brightness(String),
+    Nordvpn(String),
 }
 
 #[derive(Clone)]
@@ -155,4 +156,11 @@ pub struct Brightness {
     pub enabled: bool,
     pub delay: f64,
     pub path: String,
+}
+
+#[derive(Clone)]
+pub struct Nordvpn {
+    pub icon: String,
+    pub enabled: bool,
+    pub delay: f64,
 }
